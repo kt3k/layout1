@@ -2,11 +2,14 @@ const test = require('tape')
 const Vinyl = require('vinyl')
 
 const layout1 = require('../')
+
 const layoutEjs = `${__dirname}/fixture/layout.ejs`
 const layoutNunjucks = `${__dirname}/fixture/layout.njk`
 const layoutPug = `${__dirname}/fixture/layout.pug`
 const layoutHandlebars = `${__dirname}/fixture/layout.hbs`
 const layoutMustache = `${__dirname}/fixture/layout.mustache`
+
+const dataLayoutEjs = `${__dirname}/fixture/data.ejs`
 
 const helloHtmlVinyl = () => new Vinyl({
   path: 'hello.html',
@@ -80,5 +83,15 @@ test('it has alias methods .ejs(), .nunjucks(), .pug(), .handlebars(), .mustache
 
   layout1.mustache(layoutMustache)
     .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+    .write(helloHtmlVinyl())
+})
+
+test('options.data is passed as template variable', t => {
+  t.plan(1)
+
+  layout1.ejs(dataLayoutEjs, { data: { title: 'THE SITE' } })
+    .on('data', file =>
+      t.equal(`${file.contents}`, '<html><title>THE SITE</title><body><p>Hello</p></body></html>\n')
+    )
     .write(helloHtmlVinyl())
 })
