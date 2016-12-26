@@ -2,7 +2,7 @@
 
 > Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
-# Features
+# :green_heart: Features
 
 - gulp plugin (gulpfriendly)
 - wraps files in any template files (ejs, nunjucks, pug, handlebars, mustache, hogan, etc)
@@ -55,7 +55,7 @@ For example, suppose `source/layout/page.ejs` is like the following:
 </html>
 ```
 
-And suppose one of the file, called `hello.html`, is like the following:
+And suppose a file in the stream, called `hello.html`, is like the following:
 
 ```html
 <p>hello</p>
@@ -126,9 +126,9 @@ gulp.task('site', () => (
 
 In the above example, the file is wrapped by `source/layout/article.ejs` if the path includes `article` at the start like `source/article/2016-10-10.md`, otherwise it's wrapped by `source/layout/page.ejs`.
 
-## Recipe: Select layout template file according to the file's YAML front-matter
+## :pizza: Recipe: Select layout template file according to the file's YAML front-matter
 
-This example is much more similar to static site generators. By passing the function as the first param to `layout1`, you can select layout template file according to YAML front-matter though this plugin itself doesn't know about what front-matter is.
+This example is much more similar to static site generators. By passing the function as the first param to `layout1`, you can select layout template file according to YAML front-matter, although this plugin itself doesn't know about what front-matter is.
 
 First you need to parse YAML front-matter by `gulp-front-matter`:
 
@@ -139,7 +139,7 @@ const frontMatter = require('gulp-front-matter')
 Then you need to transform markdown to html by `gulp-marked`:
 
 ```js
-const marked = require('marked')
+const marked = require('gulp-marked')
 ```
 
 Finally, you can select the layout template file according to YAML front-matter's, for example, `layout` property:
@@ -180,16 +180,32 @@ In addition to the above, if the front-matter doesn't have `layout` property, th
 
 This is quite similar to layout selection mechanism of `jekyll` and `middleman`.
 
-## Recipe: Pass variables to the layout template
+## :dango: Recipe: Pass variables to the layout template
 
-By passing `data` option, you can set template variables.
+By passing `data` option, you can set template variables from gulpfile.
 
 ```js
 gulp.task('pages', () => (
   gulp.src('source/*.html')
-    .pipe()
+    .pipe(layout1.ejs('layout.ejs', { data: { siteName: 'My Home' } }))
     .pipe(gulp.dest('build'))
 ))
+```
+
+And you have following `layout.ejs` and `source/hello.html`:
+
+```ejs
+<title><%= siteName %></title><body><%- file.contents %></body>
+```
+
+```html
+<p>Hello</p>
+```
+
+Then you get `build/hello.html` like the following:
+
+```html
+<title>My Home</title><body><p>Hello</p></body>
 ```
 
 # API reference
@@ -227,17 +243,17 @@ As the examples above show, this plugin has the alias methods for selecting temp
 ### layout1.mustache(layout, options)
 ### layout1.hogan(layout, options)
 
-All these are the same as the above except that `options.engine` is set to the given one.
+All these are the same as `layout1(layout, options)` except that `options.engine` is set to the given one.
 
-# Similar project
+# :globe_with_meridians: Similar project
 
 - [gulp-wrap][gulp-wrap]
 - [layou-wrapper][layout-wrappe]
 
-# License
+# :credit_card: License
 
 MIT
 
-# History
+# :notebook: History
 
 - 2016-12-XX   v1.0.0   Initial release
