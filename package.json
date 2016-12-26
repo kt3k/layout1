@@ -1,0 +1,47 @@
+{
+  "name": "layout1",
+  "version": "0.1.0",
+  "description": "Gulp transform which `wraps` the files in the stream with the given layout template(s).",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/index.js",
+    "cov": "nyc --reporter=lcov npm test",
+    "codecov": "npm run cov && codecov",
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kt3k/layout1.git"
+  },
+  "keywords": [
+    "gulpfriendly",
+    "ssg",
+    "statis",
+    "site",
+    "generator",
+    "layout"
+  ],
+  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kt3k/layout1/issues"
+  },
+  "homepage": "https://github.com/kt3k/layout1#readme",
+  "devDependencies": {
+    "codecov": "^1.0.1",
+    "concat-stream": "^1.6.0",
+    "ejs": "^2.5.5",
+    "handlebars": "^4.0.6",
+    "mustache": "^2.3.0",
+    "nunjucks": "^3.0.0",
+    "nyc": "^10.0.0",
+    "pug": "^2.0.0-beta6",
+    "standard": "^8.6.0",
+    "tape": "^4.6.3",
+    "vinyl": "^2.0.1"
+  },
+  "dependencies": {
+    "consolidate": "^0.14.5",
+    "gulp-wrap": "^0.13.0"
+  }
+}

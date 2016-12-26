@@ -1,6 +1,6 @@
 # layout1 - v0.1.0
 
-> Gulp transform which `wraps` the files of the stream in the given layout template(s).
+> Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
 # Features
 
@@ -180,6 +180,18 @@ In addition to the above, if the front-matter doesn't have `layout` property, th
 
 This is quite similar to layout selection mechanism of `jekyll` and `middleman`.
 
+## Recipe: Pass variables to the layout template
+
+By passing `data` option, you can set template variables.
+
+```js
+gulp.task('pages', () => (
+  gulp.src('source/*.html')
+    .pipe()
+    .pipe(gulp.dest('build'))
+))
+```
+
 # API reference
 
 The API is really simple. It has basically the only one function `layout1` (except alias methods). It returns a gulp transform as described above. It has some options.
@@ -199,6 +211,10 @@ If `layout` is a function, then it's called with the `file` (vinyl) object and t
 - @param {string} options.engine
 
 The template engine to use. You can also specify this by using alias methods for the engines.
+
+- @param {object} options.data
+
+The additional template variables passed to the wrapping template.
 
 ## Alias methods
 
