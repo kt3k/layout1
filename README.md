@@ -2,6 +2,10 @@
 
 > Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
+[![CircleCI](https://circleci.com/gh/kt3k/layout1.svg?style=svg)](https://circleci.com/gh/kt3k/layout1)
+[![codecov](https://codecov.io/gh/kt3k/layout1/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/layout1)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 # :green_heart: Features
 
 - gulp plugin (gulpfriendly)
@@ -256,4 +260,4 @@ MIT
 
 # :notebook: History
 
-- 2016-12-XX   v1.0.0   Initial release
+- 2016-12-26   v1.0.0   Initial release
