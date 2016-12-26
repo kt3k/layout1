@@ -47,9 +47,10 @@ const layout1 = (layout, options) => {
   return wrap(data => {
     if (typeof layout === 'string') {
       return getLayout(layout)
-    } else if (typeof layout === 'function') {
-      return getLayout(layout(data.file))
     }
+
+    // Here, layout must be a function.
+    return getLayout(layout(data.file))
   }, templateData, { engine })
 }
 
