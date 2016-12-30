@@ -1,4 +1,4 @@
-# layout1 - v1.0.0
+# layout1 - v1.0.1
 
 > Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
@@ -262,4 +262,5 @@ MIT
 
 # :notebook: History
 
+- 2016-12-29   v1.0.1   Add logo
 - 2016-12-26   v1.0.0   Initial release
