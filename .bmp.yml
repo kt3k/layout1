@@ -1,6 +1,6 @@
 ---
 version: 1.0.1
-commit: ":up: chore: bump to version v%.%.%"
+commit: ":bookmark: chore: bump to version v%.%.%"
 files:
   README.md: v%.%.%
   package.json: '"version": "%.%.%"'
