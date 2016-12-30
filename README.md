@@ -5,6 +5,7 @@
 <img width="100" src="https://kt3k.github.io/layout1/media/l1.svg" />
 
 [![CircleCI](https://circleci.com/gh/kt3k/layout1.svg?style=svg)](https://circleci.com/gh/kt3k/layout1)
+[![Build status](https://ci.appveyor.com/api/projects/status/q1pko428feasdcgh?svg=true)](https://ci.appveyor.com/project/kt3k/layout1)
 [![codecov](https://codecov.io/gh/kt3k/layout1/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/layout1)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
