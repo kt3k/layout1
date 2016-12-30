@@ -1,6 +1,6 @@
 {
   "name": "layout1",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gulp transform which `wraps` the files in the stream with the given layout template(s).",
   "main": "index.js",
   "scripts": {

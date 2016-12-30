@@ -1,4 +1,4 @@
-# layout1 - v1.0.1
+# layout1 - v1.0.2
 
 > Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
