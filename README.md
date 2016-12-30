@@ -252,10 +252,61 @@ As the examples above show, this plugin has the alias methods for selecting temp
 
 All these are the same as `layout1(layout, options)` except that `options.engine` is set to the given one.
 
+**NOTE** The all list of avaialable template engines are:
+
+```
+liquid
+jade
+dust
+swig
+atpl
+liquor
+twig
+ejs
+eco
+jazz
+jqtpl
+haml
+hamlet
+whiskers
+haml-coffee
+hogan
+templayed
+handlebars
+underscore
+lodash
+pug
+qejs
+walrus
+mustache
+just
+ect
+mote
+toffee
+dot
+bracket
+ractive
+nunjucks
+htmling
+react
+arc-templates
+vash
+slm
+marko
+```
+
+# Example project
+
+The example of usage of layout1 in a gulp and [bulbo][bulbo] project.
+
+- https://github.com/kt3k/example-layout1-ssg
+
 # :globe_with_meridians: Similar project
 
+These library do the similar thing in a different APIs.
+
 - [gulp-wrap][gulp-wrap]
-- [layou-wrapper][layout-wrappe]
+- [layou-wrapper][layout-wrapper]
 
 # :credit_card: License
 
@@ -265,3 +316,7 @@ MIT
 
 - 2016-12-29   v1.0.1   Add logo
 - 2016-12-26   v1.0.0   Initial release
+
+[bulbo]: https://github.com/kt3k/bulbo
+[gulp-wrap]: https://www.npmjs.com/package/gulp-wrap
+[layout-wrapper]: https://www.npmjs.com/package/layout-wrapper
