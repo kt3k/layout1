@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/kt3k/layout1#readme",
   "devDependencies": {
-    "codecov": "^1.0.1",
+    "codecov": "^2.0.1",
     "concat-stream": "^1.6.0",
     "ejs": "^2.5.5",
     "handlebars": "^4.0.6",
