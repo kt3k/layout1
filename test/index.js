@@ -1,5 +1,6 @@
 const test = require('tape')
 const Vinyl = require('vinyl')
+const Stream = require('stream')
 
 const layout1 = require('../')
 
@@ -21,7 +22,7 @@ const helloHtmlString = '<html><body><p>Hello</p></body></html>\n'
 test('it returns a stream', t => {
   t.plan(1)
 
-  t.ok(typeof layout1('test.ejs', { engine: 'ejs' }).pipe === 'function')
+  t.ok(layout1('test.ejs', { engine: 'ejs' }) instanceof Stream)
 })
 
 test('it throws an error when the layout param is not a string or a function', t => {
