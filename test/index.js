@@ -1,16 +1,15 @@
-const test = require('tape')
 const Vinyl = require('vinyl')
 const Stream = require('stream')
+const mock = require('mock-fs')
+const { expect } = require('chai')
+
+require('ejs')
+require('pug')
+require('nunjucks')
+require('handlebars')
+require('mustache')
 
 const layout1 = require('../')
-
-const layoutEjs = `${__dirname}/fixture/layout.ejs`
-const layoutNunjucks = `${__dirname}/fixture/layout.njk`
-const layoutPug = `${__dirname}/fixture/layout.pug`
-const layoutHandlebars = `${__dirname}/fixture/layout.hbs`
-const layoutMustache = `${__dirname}/fixture/layout.mustache`
-
-const dataLayoutEjs = `${__dirname}/fixture/data.ejs`
 
 const helloHtmlVinyl = () => new Vinyl({
   path: 'hello.html',
@@ -19,80 +18,113 @@ const helloHtmlVinyl = () => new Vinyl({
 
 const helloHtmlString = '<html><body><p>Hello</p></body></html>\n'
 
-test('it returns a stream', t => {
-  t.plan(1)
-
-  t.ok(layout1('test.ejs', { engine: 'ejs' }) instanceof Stream)
+beforeEach(() => {
+  mock({
+    '/fixture': {
+      'layout.ejs': '<html><body><%- file.contents %></body></html>\n',
+      'layout.njk': '<html><body>{{ file.contents | safe }}</body></html>\n',
+      'layout.pug': 'html\n  body !{file.contents}\n\n',
+      'layout.hbs': '<html><body>{{{ file.contents }}}</body></html>\n',
+      'layout.mustache': '<html><body>{{{ file.contents }}}</body></html>\n',
+      'data.ejs': '<html><title><%= title %></title><body><%- file.contents %></body></html>\n'
+    }
+  })
 })
 
-test('it throws an error when the layout param is not a string or a function', t => {
-  t.plan(4)
-
-  t.throws(() => layout1(undefined, { engine: 'ejs' }))
-  t.throws(() => layout1(null, { engine: 'ejs' }))
-  t.throws(() => layout1([], { engine: 'ejs' }))
-  t.throws(() => layout1({}, { engine: 'ejs' }))
+afterEach(() => {
+  mock.restore()
 })
 
-test('it throws an error when the engine option is not given', t => {
-  t.plan(2)
-
-  t.throws(() => layout1('test.ejs'))
-  t.throws(() => layout1('test.ejs', {}))
+it('returns a stream', () => {
+  expect(layout1('test.ejs', { engine: 'ejs' })).to.be.instanceof(Stream)
 })
 
-test('it throws an error when the given engine name is invalid', t => {
-  t.plan(1)
-
-  t.throws(() => layout1('test.ejs', { engine: 'erb' }))
+it('throws an error when the layout param is not a string or a function', () => {
+  expect(() => layout1(undefined, { engine: 'ejs' })).to.throw()
+  expect(() => layout1(null, { engine: 'ejs' })).to.throw()
+  expect(() => layout1([], { engine: 'ejs' })).to.throw()
+  expect(() => layout1({}, { engine: 'ejs' })).to.throw()
 })
 
-test('wraps the file with the given template filename', t => {
-  t.plan(1)
+it('throws an error when the engine option is not given', () => {
+  expect(() => layout1('test.ejs')).to.throw()
+  expect(() => layout1('test.ejs', {})).to.throw()
+})
 
-  layout1(layoutEjs, { engine: 'ejs' })
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+it('it throws an error when the given engine name is invalid', () => {
+  expect(() => layout1('test.ejs', { engine: 'erb' })).to.throw()
+})
+
+it('wraps the file with the given template filename', done => {
+  layout1('/fixture/layout.ejs', { engine: 'ejs' })
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+
+      done()
+    })
     .write(helloHtmlVinyl())
 })
 
-test('wraps the file with the returned filename of the given layout function', t => {
-  t.plan(1)
+it('wraps the file with the returned filename of the given layout function', done => {
+  layout1(() => '/fixture/layout.ejs', { engine: 'ejs' })
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
 
-  layout1(() => layoutEjs, { engine: 'ejs' })
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+      done()
+    })
     .write(helloHtmlVinyl())
 })
 
-test('it has alias methods .ejs(), .nunjucks(), .pug(), .handlebars(), .mustache(), .hogan() etc', t => {
-  t.plan(5)
+it('has alias methods .ejs(), .nunjucks(), .pug(), .handlebars(), .mustache(), .hogan() etc', done => {
+  let count = 0
 
-  layout1.ejs(layoutEjs)
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+  layout1.ejs('/fixture/layout.ejs')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+      count++
+    })
     .write(helloHtmlVinyl())
 
-  layout1.nunjucks(layoutNunjucks)
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+  layout1.nunjucks('/fixture/layout.njk')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+      count++
+    })
     .write(helloHtmlVinyl())
 
-  layout1.pug(layoutPug)
-    .on('data', file => t.equal(`${file.contents}\n`, helloHtmlString))
+  layout1.pug('/fixture/layout.pug')
+    .on('data', file => {
+      expect(`${file.contents}\n`).to.equal(helloHtmlString)
+      count++
+    })
     .write(helloHtmlVinyl())
 
-  layout1.handlebars(layoutHandlebars)
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+  layout1.handlebars('/fixture/layout.hbs')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+      count++
+    })
     .write(helloHtmlVinyl())
 
-  layout1.mustache(layoutMustache)
-    .on('data', file => t.equal(`${file.contents}`, helloHtmlString))
+  layout1.mustache('/fixture/layout.mustache')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+      count++
+    })
     .write(helloHtmlVinyl())
+
+  setTimeout(() => {
+    expect(count).to.equal(5)
+    done()
+  }, 1000)
 })
 
-test('options.data is passed as template variable', t => {
-  t.plan(1)
+it('options.data is passed as template variable', done => {
+  layout1.ejs('/fixture/data.ejs', { data: { title: 'THE SITE' } })
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal('<html><title>THE SITE</title><body><p>Hello</p></body></html>\n')
 
-  layout1.ejs(dataLayoutEjs, { data: { title: 'THE SITE' } })
-    .on('data', file =>
-      t.equal(`${file.contents}`, '<html><title>THE SITE</title><body><p>Hello</p></body></html>\n')
-    )
+      done()
+    })
     .write(helloHtmlVinyl())
 })

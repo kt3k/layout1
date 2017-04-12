@@ -4,7 +4,7 @@
   "description": "Gulp transform which `wraps` the files in the stream with the given layout template(s).",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/index.js",
+    "test": "mocha test/index.js",
     "cov": "nyc --reporter=lcov npm test",
     "codecov": "npm run cov && codecov",
     "lint": "standard"
@@ -28,16 +28,17 @@
   },
   "homepage": "https://github.com/kt3k/layout1#readme",
   "devDependencies": {
+    "chai": "^3.5.0",
     "codecov": "^2.0.1",
-    "concat-stream": "^1.6.0",
     "ejs": "^2.5.5",
     "handlebars": "^4.0.6",
+    "mocha": "^3.2.0",
+    "mock-fs": "^4.2.0",
     "mustache": "^2.3.0",
     "nunjucks": "^3.0.0",
     "nyc": "^10.0.0",
     "pug": "^2.0.0-beta6",
     "standard": "^10.0.0",
-    "tape": "^4.6.3",
     "vinyl": "^2.0.1"
   },
   "dependencies": {
