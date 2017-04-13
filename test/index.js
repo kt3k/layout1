@@ -2,6 +2,7 @@ const Vinyl = require('vinyl')
 const Stream = require('stream')
 const mock = require('mock-fs')
 const { expect } = require('chai')
+const fs = require('fs')
 
 require('ejs')
 require('pug')
@@ -125,6 +126,43 @@ it('options.data is passed as template variable', done => {
       expect(`${file.contents}`).to.equal('<html><title>THE SITE</title><body><p>Hello</p></body></html>\n')
 
       done()
+    })
+    .write(helloHtmlVinyl())
+})
+
+it('uses cached layout template if the mtimes are the same', done => {
+  // This test case increases the branch coverage of the cache hit check
+  let c = 0
+
+  const transform = layout1.ejs('/fixture/layout.ejs')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+
+      c += 1
+
+      if (c == 2) {
+        done()
+      }
+    })
+
+  transform.write(helloHtmlVinyl())
+  transform.write(helloHtmlVinyl())
+})
+
+it('reloads the layout file if it is updated', done => {
+  layout1.ejs('/fixture/layout.ejs')
+    .on('data', file => {
+      expect(`${file.contents}`).to.equal(helloHtmlString)
+
+      fs.writeFileSync('/fixture/layout.ejs', '<html></html>')
+
+      layout1.ejs('/fixture/layout.ejs')
+        .on('data', file => {
+          expect(`${file.contents}`).to.equal('<html></html>')
+
+          done()
+        })
+       .write(helloHtmlVinyl())
     })
     .write(helloHtmlVinyl())
 })

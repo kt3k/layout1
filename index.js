@@ -13,11 +13,15 @@ const layoutMemo = {}
  * @return {string}
  */
 const getLayout = filename => {
-  if (!layoutMemo[filename]) {
-    layoutMemo[filename] = fs.readFileSync(filename).toString()
+  const stat = fs.lstatSync(filename)
+  const memo = layoutMemo[filename]
+
+  if (memo == null || memo.stat.mtime.getTime() < stat.mtime.getTime()) {
+    const contents = fs.readFileSync(filename).toString()
+    layoutMemo[filename] = { stat, contents }
   }
 
-  return layoutMemo[filename]
+  return layoutMemo[filename].contents
 }
 
 /**
