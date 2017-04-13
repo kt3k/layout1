@@ -1,7 +1,9 @@
+'use strict'
+
 const Vinyl = require('vinyl')
 const Stream = require('stream')
 const mock = require('mock-fs')
-const { expect } = require('chai')
+const expect = require('chai').expect
 const fs = require('fs')
 
 require('ejs')
