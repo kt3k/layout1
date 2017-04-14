@@ -156,15 +156,19 @@ it('reloads the layout file if it is updated', done => {
     .on('data', file => {
       expect(`${file.contents}`).to.equal(helloHtmlString)
 
-      fs.writeFileSync('/fixture/layout.ejs', '<html></html>')
+      // This `setTimeout` is necessary to make sure the mtime is strictly
+      // higher than the previous one.
+      setTimeout(() => {
+        fs.writeFileSync('/fixture/layout.ejs', '<html></html>')
 
-      layout1.ejs('/fixture/layout.ejs')
-        .on('data', file => {
-          expect(`${file.contents}`).to.equal('<html></html>')
+        layout1.ejs('/fixture/layout.ejs')
+          .on('data', file => {
+            expect(`${file.contents}`).to.equal('<html></html>')
 
-          done()
-        })
-       .write(helloHtmlVinyl())
+            done()
+          })
+          .write(helloHtmlVinyl())
+      }, 10)
     })
     .write(helloHtmlVinyl())
 })
