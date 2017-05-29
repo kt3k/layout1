@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/kt3k/layout1#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "codecov": "^2.0.1",
     "ejs": "^2.5.5",
     "handlebars": "^4.0.6",
