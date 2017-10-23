@@ -29,7 +29,7 @@
   "homepage": "https://github.com/kt3k/layout1#readme",
   "devDependencies": {
     "chai": "^4.0.0",
-    "codecov": "^2.0.1",
+    "codecov": "^3.0.0",
     "ejs": "^2.5.5",
     "handlebars": "^4.0.6",
     "kocha": "^1.5.1",
