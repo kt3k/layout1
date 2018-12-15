@@ -35,7 +35,7 @@
     "kocha": "^1.5.1",
     "mock-fs": "^4.2.0",
     "mustache": "^3.0.0",
-    "nunjucks": "^3.0.0",
+    "nunjucks": "^3.1.6",
     "nyc": "^12.0.1",
     "pug": "^2.0.0-beta6",
     "standard": "^12.0.0",
