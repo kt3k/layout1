@@ -30,7 +30,7 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "codecov": "^3.0.0",
-    "ejs": "^2.5.5",
+    "ejs": "^3.0.1",
     "handlebars": "^4.0.6",
     "kocha": "^1.5.1",
     "mock-fs": "^4.2.0",
