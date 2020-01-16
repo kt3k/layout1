@@ -34,7 +34,7 @@
     "handlebars": "^4.0.6",
     "kocha": "^1.5.1",
     "mock-fs": "^4.2.0",
-    "mustache": "^3.0.0",
+    "mustache": "^4.0.0",
     "nunjucks": "^3.2.0",
     "nyc": "^15.0.0",
     "pug": "^2.0.0-beta6",
