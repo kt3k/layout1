@@ -9,7 +9,6 @@ const { beforeEach, afterEach, it } = require('kocha')
 require('ejs')
 require('pug')
 require('nunjucks')
-require('mustache')
 
 const layout1 = require('../')
 
@@ -27,7 +26,6 @@ beforeEach(() => {
   fs.writeFileSync(path.join(tmpDir.name, 'layout.ejs'), '<html><body><%- file.contents %></body></html>\n', 'utf-8')
   fs.writeFileSync(path.join(tmpDir.name, 'layout.njk'), '<html><body>{{ file.contents | safe }}</body></html>\n', 'utf-8')
   fs.writeFileSync(path.join(tmpDir.name, 'layout.pug'), 'html\n  body !{file.contents}\n\n', 'utf-8')
-  fs.writeFileSync(path.join(tmpDir.name, 'layout.mustache'), '<html><body>{{{ file.contents }}}</body></html>\n', 'utf-8')
   fs.writeFileSync(path.join(tmpDir.name, 'data.ejs'), '<html><title><%= title %></title><body><%- file.contents %></body></html>\n', 'utf-8')
 })
 
@@ -75,7 +73,7 @@ it('wraps the file with the returned filename of the given layout function', don
     .write(helloHtmlVinyl())
 })
 
-it('has alias methods .ejs(), .nunjucks(), .pug(), .mustache(), .hogan() etc', done => {
+it('has alias methods .ejs(), .nunjucks(), .pug(), .hogan() etc', done => {
   let count = 0
 
   layout1.ejs(path.join(tmpDir.name, 'layout.ejs'))
@@ -99,15 +97,8 @@ it('has alias methods .ejs(), .nunjucks(), .pug(), .mustache(), .hogan() etc', d
     })
     .write(helloHtmlVinyl())
 
-  layout1.mustache(path.join(tmpDir.name, 'layout.mustache'))
-    .on('data', file => {
-      expect(`${file.contents}`).to.equal(helloHtmlString)
-      count++
-    })
-    .write(helloHtmlVinyl())
-
   setTimeout(() => {
-    expect(count).to.equal(4)
+    expect(count).to.equal(3)
     done()
   }, 1000)
 })
