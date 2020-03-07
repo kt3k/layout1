@@ -1,6 +1,6 @@
 # layout1 - v1.1.0
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/kt3k/layout1.svg)](https://greenkeeper.io/)
+
 
 > Gulp transform which `wraps` the files in the stream with the given layout template(s).
 
