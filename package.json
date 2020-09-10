@@ -41,7 +41,7 @@
     "vinyl": "^2.0.1"
   },
   "dependencies": {
-    "consolidate": "^0.15.0",
+    "consolidate": "^0.16.0",
     "gulp-wrap": "^0.15.0"
   }
 }
